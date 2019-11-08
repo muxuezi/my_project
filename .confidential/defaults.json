@@ -1,0 +1,11 @@
+{
+    "SECRET_KEY": "f!vjr9ka=u5+smc03twvzjsvtk6%0i5l7r$gyy8pr5^vuz%qj*",
+    "ALLOWED_HOSTS": [
+        "*"
+    ],
+    "DEBUG": true,
+    "DATABASE": {
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": "project.db"
+    }
+}

@@ -12,21 +12,21 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 
 import os
 
-# Build paths inside the project like this: os.path.join(BASE_DIR, ...)
+from confidential import SecretsManager
+
+confidential = SecretsManager(
+    secrets_file_default=".confidential/defaults.json",
+    secrets_file=os.environ.get("SECRETS_FILE"),
+    region_name="us-east-1",
+)
+
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+SECRET_KEY = confidential["SECRET_KEY"]
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
+DEBUG = confidential["DEBUG"]
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'f!vjr9ka=u5+smc03twvzjsvtk6%0i5l7r$gyy8pr5^vuz%qj*'
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = confidential["ALLOWED_HOSTS"]
 
 # Application definition
 
@@ -73,12 +73,7 @@ WSGI_APPLICATION = 'project.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
-}
+DATABASES = {"default": confidential["DATABASE"]}
 
 
 # Password validation
